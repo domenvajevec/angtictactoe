@@ -13,7 +13,6 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
  	var turnCounter = 0;
  	var winningCombos = [ ["0","1","2"],["3","4","5"],["6","7","8"],["0","3","6"],["1","4","7"],["2","5","8"],["0","4","8"],["2","4","6"] ];
  	
-
     $scope.resetBoard = function(){
 
 		$scope.occupiedFields = [false,false,false,false,false,false,false,false,false];
@@ -30,6 +29,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
 	    if($scope.occupiedFields[index] !== true){ //check if field is occupied
 	   
 			if ($scope.currentPlayer.val === true){
+				playSound("X");
 				$scope.playerX.push(index);
 				$scope.cells[index] = "X";
 				$scope.occupiedFields[index] = true;
@@ -39,6 +39,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
 				}
 			} else {
 				$scope.playerO.push(index);
+				playSound("O");
 				$scope.cells[index] = "O";
 				$scope.playerO.sort();
 				$scope.occupiedFields[index] = true;
@@ -90,16 +91,17 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
     };	
 
     $scope.checkTurn = function(){
+
 		turnCounter++;
 		// console.log("checkTurn(): Game Counter: "+ gameCounter + " Turn counter: " + turnCounter);
 		// if($scope.playerXScore==3){playVideo(video15, 85000)}
 		
-		// if(gameCounter == 1 && turnCounter == 3){playVideo(video2, 14000);}
-		// if(gameCounter == 1 && turnCounter == 6){playVideo(video8, 13000);}
-		// if(gameCounter == 2 && turnCounter == 1){playVideo(video3, 4000);}
-		// if(gameCounter == 2 && turnCounter == 2){playVideo(video9, 19400);}
-		// if(gameCounter == 3 && turnCounter == 3){playVideo(video10, 10000);}
-		// if(gameCounter == 2 && turnCounter == 2){playVideo(video9, 20000);}
+		if(gameCounter == 1 && turnCounter == 3){playVideo(video2, 14000);}
+		if(gameCounter == 1 && turnCounter == 6){playVideo(video8, 13000);}
+		if(gameCounter == 2 && turnCounter == 1){playVideo(video3, 4000);}
+		if(gameCounter == 2 && turnCounter == 6){playVideo(video9, 19400);}
+		if(gameCounter == 3 && turnCounter == 3){playVideo(video10, 10000);}
+		if(gameCounter == 2 && turnCounter == 2){playVideo(video9, 20000);}
 
 
 		if (turnCounter == 9 && !$scope.checkWin(playerX) && !$scope.checkWin(playerO)){
@@ -108,22 +110,9 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
 		}
 	};
 
-	
 	$scope.resetBoard();
 	
-}); //end Ctrl
-
-// ticTacToeApp.directive("showImage", function() {
-// 	var linkFn;
-// 	linkFn = function(scope,element, attrs){
-		
-
-// 	}
-// 	return {
-// 		restrict: "A",
-// 		link: linkFn
-// 	}
-// })
+}); 
 
 playVideo = function(videoNum, timeoutNumber){
 
@@ -136,6 +125,12 @@ playVideo = function(videoNum, timeoutNumber){
 		insertVideo.innerHTML="";
 		disappear.style.opacity="1";
 	},timeoutNumber);
+}
+
+playSound = function(player){
+ 	var audioX = new Audio("audio/XBeep.mp3");
+ 	var audioO = new Audio("audio/OBeep.mp3");
+ 	player === "X" ? audioX.play() : audioO.play();
 }
 
 
