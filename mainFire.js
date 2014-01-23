@@ -12,8 +12,6 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
  	$scope.playerO = [];
  	var gameCounter = 0;
  	var turnCounter = 0;
- 	// var playerXImg = "<img src=\"images/xxx.gif\" title=\"playerX\">";
-  //   var playerOImg = "<img src=\"images/ooo.gif\" title=\"playerO\">";
     $scope.scoreX = 0;
     $scope.scoreO = 0;
  	
@@ -77,13 +75,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 			return true;
 		}
 	}
-	// $scope.showImage = function(input){
-	// 	var showX = ".showX";
-	// 	var showO = ".showO";
-	// 	console.log($scope.cell[input] + " input to function showImage");
-	// 	// cell[input] == 'X' ? return showX : return ("");
-	// 	// cell[input] == 'O' ? return showO : return ("");
-	// }
+	
 
 	$scope.checkWin = function(player){
 	    for (var i = 0; i < 8; i++){
@@ -132,17 +124,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 	// $scope.beginGame();
 }); //end Ctrl
 
-ticTacToeApp.directive("showImage", function() {
-	var linkFn;
-	linkFn = function(scope,element, attrs){
-		
 
-	}
-	return {
-		restrict: "A",
-		link: linkFn
-	}
-})
 
 playVideo = function(videoNum, timeoutNumber){
 

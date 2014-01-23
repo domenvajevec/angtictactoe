@@ -101,7 +101,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
 		if(gameCounter == 2 && turnCounter == 1){playVideo(video3, 4000);}
 		if(gameCounter == 2 && turnCounter == 6){playVideo(video9, 19400);}
 		if(gameCounter == 3 && turnCounter == 3){playVideo(video10, 10000);}
-		if(gameCounter == 2 && turnCounter == 2){playVideo(video9, 20000);}
+		// if(gameCounter == 2 && turnCounter == 2){playVideo(video9, 20000);}
 
 
 		if (turnCounter == 9 && !$scope.checkWin(playerX) && !$scope.checkWin(playerO)){
