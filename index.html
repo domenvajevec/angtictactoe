@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Tic Tac Toe</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+	<script src="videos.js"></script>
+	<script src="main.js"></script>
+</head>
+
+<body x-ng-app="ticTacToeApp">
+<div id="videoPlay"></div>
+<div id="wrapper">
+	<div ng-controller="TicTacToeCtrl" class="bg-main">
+
+		<div id="{{$index}}" x-ng-repeat="cell in cells track by $index" x-ng-class="{field: true, clear: $index % 3 == 0, showX: showX(cell), showO: showO(cell)}" x-ng-click="changeState($index);">
+		<!--  -->
+		
+		</div>
+		<!-- <br>
+		<button x-ng-click="resetBoard();">Reset Board</button>
+		<p class="clear">Current player: {{currentPlayer}}</p> -->
+		<div class="score" id="left">PLAYER X SCORE: <span id="playerX">{{scoreX}}</span></div>
+		<div class="score" id="right"> PLAYER O SCORE: <span id="playerO">{{scoreO}}</span></div>
+	</div>
+</div>
+</body>
+</html>
