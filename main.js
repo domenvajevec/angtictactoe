@@ -1,6 +1,7 @@
 var ticTacRef, IDs, whoAmI;
 var winningCombos = [ ["0","1","2"],["3","4","5"],["6","7","8"],["0","3","6"],["1","4","7"],["2","5","8"],["0","4","8"],["2","4","6"] ];
 
+
 var ticTacToeApp = angular.module('ticTacToeApp', ["firebase"]);
 
 ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
@@ -35,7 +36,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 	};
 
     $scope.resetBoard = function(){
-    	// $scope.currentPlayer = true ; //uncomment for X to start every game
+    	$scope.currentPlayer = true ; //uncomment for X to start every game
 		$scope.obj.turnCounter = 0;
 	    $scope.obj.playerX = [''];
 	    $scope.obj.playerO = [''];
