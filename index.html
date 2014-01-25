@@ -5,6 +5,8 @@
 	<title>Tic Tac Toe</title>
 	<link rel="stylesheet" href="css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
 	<script src="videos.js"></script>
 	<script src="main.js"></script>
 </head>
@@ -15,11 +17,11 @@
 
 	<div ng-controller="TicTacToeCtrl" class="bg-main">
 
-		<div id="{{$index}}" x-ng-repeat="cell in cells track by $index" x-ng-class="{field: true, clear: $index % 3 == 0, showX: showX(cell), showO: showO(cell)}" x-ng-click="changeState($index);">
+		<div id="{{$index}}" x-ng-repeat="cell in obj.board track by $index" x-ng-class="{field: true, clear: $index % 3 == 0, showX: showX(cell), showO: showO(cell)}" x-ng-click="changeState($index);">
 		</div>
 		
-		<div class="score" id="left">PLAYER X SCORE: <span id="playerX">{{scoreX}}</span></div>
-		<div class="score" id="right"> PLAYER O SCORE: <span id="playerO">{{scoreO}}</span></div>
+		<div class="score" id="left">PLAYER X SCORE: <span id="playerX" ng-bind="obj.scoreX"></span></div>
+		<div class="score" id="right"> PLAYER O SCORE: <span id="playerO" ng-bind="obj.scoreO"></span></div>
 
 	</div>
 </div>

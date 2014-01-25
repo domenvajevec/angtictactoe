@@ -1,50 +1,78 @@
-var ticTacToeApp = angular.module('ticTacToeApp', []);
+var ticTacRef, IDs, whoAmI;
+var winningCombos = [ ["0","1","2"],["3","4","5"],["6","7","8"],["0","3","6"],["1","4","7"],["2","5","8"],["0","4","8"],["2","4","6"] ];
+var globalBoard;
+//determine player
 
-ticTacToeApp.controller('TicTacToeCtrl', function($scope){
+var ticTacToeApp = angular.module('ticTacToeApp', ["firebase"]);
 
- 	$scope.cells = ['','','','','','','','',''];
- 	$scope.currentPlayer = {val: true}; 
- 	$scope.playerX = [];
- 	$scope.playerO = [];
-    $scope.scoreX = 0;
-    $scope.scoreO = 0;
+ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 
- 	var gameCounter = 0;
- 	var turnCounter = 0;
- 	var winningCombos = [ ["0","1","2"],["3","4","5"],["6","7","8"],["0","3","6"],["1","4","7"],["2","5","8"],["0","4","8"],["2","4","6"] ];
+	ticTacRef = new Firebase("https://wargamestictactoe.firebaseio.com/");
+	$scope.fbRoot = $firebase(ticTacRef);
+
  	
-    $scope.resetBoard = function(){
+ 	$scope.fbRoot.$on("loaded", function() {
+		IDs = $scope.fbRoot.$getIndex();
+		
+		if(IDs.length == 0){
+			// What???  No Board????  Let's build one.
+	 		$scope.fbRoot.$add( { board:['','','','','','','','',''],
+ 	 			currentPlayer:true , playerX: [''], playerO: [''], scoreX: 0, scoreO: 0,
+ 	 			 gameCounter: 0, turnCounter: 0} );
+			$scope.fbRoot.$on("change", function() {
+				IDs = $scope.fbRoot.$getIndex();
+				$scope.obj = $scope.fbRoot.$child(IDs[0]);
+			});
+		} else {
+			$scope.obj = $scope.fbRoot.$child(IDs[0]);
+			// $scope.resetBoard();
+		}
+		//determine 1st player
+	}); 	
 
-		$scope.occupiedFields = [false,false,false,false,false,false,false,false,false];
-		// $scope.currentPlayer.val = true ; //uncomment for X to start every game
-		turnCounter = 0;
-	    $scope.playerX = [];
-	    $scope.playerO = [];
-	    $scope.cells = ['','','','','','','','',''];
- 	 	gameCounter++;
+	 // 	if($scope.isXTaken()){
+		// 		whoAmI = "X"
+		// } else{
+		// 		whoAmI = "O";	
+		// }
+			// console.log(whoAmI);
+
+
+    $scope.resetBoard = function(){
+    	console.log("in resetBoard function");
+
+		
+		// $scope.currentPlayer = true ; //uncomment for X to start every game
+		$scope.obj.turnCounter = 0;
+	    $scope.obj.playerX = [''];
+	    $scope.obj.playerO = [''];
+	    $scope.obj.board = ['','','','','','','','',''];
+ 	 	$scope.obj.gameCounter++;
+ 	 	$scope.obj.$save();
 	}
 
  	$scope.changeState = function(index){
+		globalBoard = $scope.obj.board;
  		
-	    if($scope.occupiedFields[index] !== true){ //check if field is occupied
-	   
-			if ($scope.currentPlayer.val === true){
+
+	    if($scope.obj.board[index] == '' ){ 
+
+	    //check if field is occupied
+			if ($scope.obj.currentPlayer == true){
 				playSound("X");
-				$scope.playerX.push(index);
-				$scope.cells[index] = "X";
-				$scope.occupiedFields[index] = true;
-				$scope.playerX.sort();
-				if ($scope.checkWin($scope.playerX)){
-					$scope.scoreX++;
+				$scope.obj.playerX.push(index);
+				$scope.obj.board[index] = "X";
+				
+				if ($scope.checkWin($scope.obj.playerX)){
+					$scope.obj.scoreX++;
 				}
+
 			} else {
-				$scope.playerO.push(index);
+				$scope.obj.playerO.push(index);
 				playSound("O");
-				$scope.cells[index] = "O";
-				$scope.playerO.sort();
-				$scope.occupiedFields[index] = true;
-				if ($scope.checkWin($scope.playerO)){
-					$scope.scoreO++;
+				$scope.obj.board[index] = "O";
+				if ($scope.checkWin($scope.obj.playerO)){
+					$scope.obj.scoreO++;
 				}
 			}
 
@@ -52,13 +80,14 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
 
 		} else {
 			alert ("Yo, occupied dude!");
-			turnCounter--;
+			$scope.obj.turnCounter--;
 		}
 		$scope.checkTurn();
+		$scope.obj.$save();
     }
 
     $scope.changePlayer = function(){
-		$scope.currentPlayer.val = ($scope.currentPlayer.val == true ? false : true);
+		$scope.obj.currentPlayer = ($scope.obj.currentPlayer ? false : true);
 	};
 
 	$scope.showX = function(cellIndexValue){
@@ -71,6 +100,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
 
 
 	$scope.checkWin = function(player){
+		player.sort();
 	    for (var i = 0; i < 8; i++){
 	        var win = 0;
 	        for (var j = 0; j < player.length; j++){
@@ -92,27 +122,31 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope){
 
     $scope.checkTurn = function(){
 
-		turnCounter++;
+		$scope.obj.turnCounter++;
 		// console.log("checkTurn(): Game Counter: "+ gameCounter + " Turn counter: " + turnCounter);
-		// if($scope.playerXScore==3){playVideo(video15, 85000)}
+		// if($scope.obj.playerXScore==3){playVideo(video15, 85000)}
 		
-		if(gameCounter == 1 && turnCounter == 3){playVideo(video2, 14000);}
-		if(gameCounter == 1 && turnCounter == 6){playVideo(video8, 13000);}
-		if(gameCounter == 2 && turnCounter == 1){playVideo(video3, 4000);}
-		if(gameCounter == 2 && turnCounter == 6){playVideo(video9, 19400);}
-		if(gameCounter == 3 && turnCounter == 3){playVideo(video10, 10000);}
-		if(gameCounter == 2 && turnCounter == 2){playVideo(video9, 20000);}
+		// if($scope.obj.gameCounter == 1 && $scope.obj.turnCounter == 3){console.log("playingVideo"); playVideo(video2, 14000);}
+		// if($scope.obj.gameCounter == 1 && $scope.obj.turnCounter == 6){playVideo(video8, 13000);}
+		// if($scope.obj.gameCounter == 2 && $scope.obj.turnCounter == 1){playVideo(video3, 4000);}
+		// if($scope.obj.gameCounter == 2 && $scope.obj.turnCounter == 6){playVideo(video9, 19400);}
+		// if($scope.obj.gameCounter == 3 && $scope.obj.turnCounter == 3){playVideo(video10, 10000);}
+		// if($scope.obj.gameCounter == 2 && $scope.obj.turnCounter == 2){playVideo(video9, 20000);}
 
 
-		if (turnCounter == 9 && !$scope.checkWin(playerX) && !$scope.checkWin(playerO)){
+		if ($scope.obj.turnCounter == 9 && !$scope.checkWin($scope.obj.playerX) && !$scope.checkWin($scope.obj.playerO)){
 			playVideo(video17, 2700);
 			$scope.resetBoard();
 		}
 	};
 
-	$scope.resetBoard();
 	
-}); 
+	// $scope.resetBoard();
+	 	// console.log($scope.obj.playerX);
+// 
+}); //end ctrl
+
+//global functions
 
 playVideo = function(videoNum, timeoutNumber){
 
@@ -125,13 +159,24 @@ playVideo = function(videoNum, timeoutNumber){
 		insertVideo.innerHTML="";
 		disappear.style.opacity="1";
 	},timeoutNumber);
-}
+};
 
 playSound = function(player){
  	var audioX = new Audio("audio/XBeep.mp3");
  	var audioO = new Audio("audio/OBeep.mp3");
  	player === "X" ? audioX.play() : audioO.play();
-}
+};
+
+// isXTaken = function(){
+// 		console.log(globalBoard);
+// 		if(globalBoard.indexOf("X") == -1 ){
+// 			whoAmI = "X";
+// 		    return true;
+// 		} else { 
+// 		    return false;
+// 		}
+// };
+// isXTaken();
 
 
 
