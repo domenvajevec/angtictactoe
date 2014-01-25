@@ -1,11 +1,9 @@
 var ticTacRef, IDs, whoAmI;
 var winningCombos = [ ["0","1","2"],["3","4","5"],["6","7","8"],["0","3","6"],["1","4","7"],["2","5","8"],["0","4","8"],["2","4","6"] ];
-var globalBoard;
-//determine player
 
 var ticTacToeApp = angular.module('ticTacToeApp', ["firebase"]);
 
-ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
+ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 
 	ticTacRef = new Firebase("https://wargamestictactoe.firebaseio.com/");
 	$scope.fbRoot = $firebase(ticTacRef);
@@ -15,7 +13,6 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 		IDs = $scope.fbRoot.$getIndex();
 		
 		if(IDs.length == 0){
-			// What???  No Board????  Let's build one.
 	 		$scope.fbRoot.$add( { board:['','','','','','','','',''],
  	 			currentPlayer:true , playerX: [''], playerO: [''], scoreX: 0, scoreO: 0,
  	 			 gameCounter: 1, turnCounter: 0} );
@@ -25,30 +22,20 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 			});
 		} else {
 			$scope.obj = $scope.fbRoot.$child(IDs[0]);
-			// $scope.resetBoard();
 		}
-		//determine 1st player
 	}); 	
 
-	 // 	if($scope.isXTaken()){
-		// 		whoAmI = "X"
-		// } else{
-		// 		whoAmI = "O";	
-		// }
-			// console.log(whoAmI);
-
-	// $scope.initializePlayerOne = function(){
-	// 	globalBoard = $scope.obj.board;
-	// 	console.log(globalBoard);
-	
-	// }
-	// $scope.initializePlayerOne();
+	$scope.isXTaken = function(){
+		if($scope.obj.board.indexOf("X") == -1 || whoAmI == "X"){
+			whoAmI = "X";
+		} else { 
+			whoAmI = "O";
+		}
+		console.log(whoAmI);
+	};
 
     $scope.resetBoard = function(){
-    	console.log("in resetBoard function");
-
-		
-		// $scope.currentPlayer = true ; //uncomment for X to start every game
+    	// $scope.currentPlayer = true ; //uncomment for X to start every game
 		$scope.obj.turnCounter = 0;
 	    $scope.obj.playerX = [''];
 	    $scope.obj.playerO = [''];
@@ -58,35 +45,47 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 	}
 
  	$scope.changeState = function(index){
+ 		$scope.isXTaken();
+ 		console.log("currentPlayer: " + $scope.obj.currentPlayer + "whoAmiI = " + whoAmI);
+ 		// console.log("Who am i:" + whoAmI);
 		
-	    if($scope.obj.board[index] == '' ){ 
+	    if($scope.obj.board[index] == '' ){ //if cell is empty
 
-	    //check if field is occupied
-			if ($scope.obj.currentPlayer == true){
+			if (whoAmI == "X" && $scope.obj.currentPlayer == true){ //&& (snapshot.board.indexOf("X")== -1)) ||  and player is X
 				playSound("X");
 				$scope.obj.playerX.push(index);
 				$scope.obj.board[index] = "X";
+				$scope.changePlayer();
+
 				
 				if ($scope.checkWin($scope.obj.playerX)){
 					$scope.obj.scoreX++;
 				}
 
-			} else {
+			} 
+
+			else if (whoAmI == "O" && $scope.obj.currentPlayer == false) {
 				$scope.obj.playerO.push(index);
 				playSound("O");
 				$scope.obj.board[index] = "O";
+				$scope.changePlayer();
+
 				if ($scope.checkWin($scope.obj.playerO)){
 					$scope.obj.scoreO++;
 				}
 			}
 
-			$scope.changePlayer();
+			else {
+				alert("Yo, don't be playing this move bro!");
+				$scope.obj.turnCounter--;
+			}
 
 		} else {
 			alert ("Yo, occupied dude!");
 			$scope.obj.turnCounter--;
 		}
-		$scope.checkTurn();
+		$scope.obj.turnCounter++;
+		$scope.screenplay();
 		$scope.obj.$save();
     }
 
@@ -124,10 +123,10 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 	    return false;
     };	
 
-    $scope.checkTurn = function(){
+    $scope.screenplay = function(){
+    	console.log("In screenplay");
 
-		$scope.obj.turnCounter++;
-		console.log("checkTurn(): Game Counter: "+ $scope.obj.gameCounter + " Turn counter: " + $scope.obj.turnCounter);
+		console.log("screenplay(): Game Counter: "+ $scope.obj.gameCounter + " Turn counter: " + $scope.obj.turnCounter);
 		// if($scope.obj.playerXScore==3){playVideo(video15, 85000)}
 		
 		if($scope.obj.gameCounter == 1 && $scope.obj.turnCounter == 3){console.log("playingVideo"); playVideo(video2, 14000);}
@@ -144,13 +143,8 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 		}
 	};
 
-	
-	// $scope.resetBoard();
-	 	// console.log($scope.obj.playerX);
-// 
-}); //end ctrl
-
-//global functions
+ 
+}); //end controller
 
 playVideo = function(videoNum, timeoutNumber){
 
@@ -171,15 +165,7 @@ playSound = function(player){
  	player === "X" ? audioX.play() : audioO.play();
 };
 
-// isXTaken = function(){
-// 		console.log(globalBoard);
-// 		if(globalBoard.indexOf("X") == -1 ){
-// 			whoAmI = "X";
-// 		    return true;
-// 		} else { 
-// 		    return false;
-// 		}
-// };
+
 // isXTaken();
 
 
