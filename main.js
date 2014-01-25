@@ -18,7 +18,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 			// What???  No Board????  Let's build one.
 	 		$scope.fbRoot.$add( { board:['','','','','','','','',''],
  	 			currentPlayer:true , playerX: [''], playerO: [''], scoreX: 0, scoreO: 0,
- 	 			 gameCounter: 0, turnCounter: 0} );
+ 	 			 gameCounter: 1, turnCounter: 0} );
 			$scope.fbRoot.$on("change", function() {
 				IDs = $scope.fbRoot.$getIndex();
 				$scope.obj = $scope.fbRoot.$child(IDs[0]);
@@ -37,6 +37,12 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 		// }
 			// console.log(whoAmI);
 
+	// $scope.initializePlayerOne = function(){
+	// 	globalBoard = $scope.obj.board;
+	// 	console.log(globalBoard);
+	
+	// }
+	// $scope.initializePlayerOne();
 
     $scope.resetBoard = function(){
     	console.log("in resetBoard function");
@@ -52,9 +58,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
 	}
 
  	$scope.changeState = function(index){
-		globalBoard = $scope.obj.board;
- 		
-
+		
 	    if($scope.obj.board[index] == '' ){ 
 
 	    //check if field is occupied
@@ -123,10 +127,10 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase){
     $scope.checkTurn = function(){
 
 		$scope.obj.turnCounter++;
-		// console.log("checkTurn(): Game Counter: "+ gameCounter + " Turn counter: " + turnCounter);
+		console.log("checkTurn(): Game Counter: "+ $scope.obj.gameCounter + " Turn counter: " + $scope.obj.turnCounter);
 		// if($scope.obj.playerXScore==3){playVideo(video15, 85000)}
 		
-		// if($scope.obj.gameCounter == 1 && $scope.obj.turnCounter == 3){console.log("playingVideo"); playVideo(video2, 14000);}
+		if($scope.obj.gameCounter == 1 && $scope.obj.turnCounter == 3){console.log("playingVideo"); playVideo(video2, 14000);}
 		// if($scope.obj.gameCounter == 1 && $scope.obj.turnCounter == 6){playVideo(video8, 13000);}
 		// if($scope.obj.gameCounter == 2 && $scope.obj.turnCounter == 1){playVideo(video3, 4000);}
 		// if($scope.obj.gameCounter == 2 && $scope.obj.turnCounter == 6){playVideo(video9, 19400);}
