@@ -1,6 +1,10 @@
 var ticTacRef, IDs, whoAmI;
 var winningCombos = [ ["0","1","2"],["3","4","5"],["6","7","8"],["0","3","6"],["1","4","7"],["2","5","8"],["0","4","8"],["2","4","6"] ];
+var audioX = new Audio("http://s3.amazonaws.com/FitMuses_Photos/Domen/XBeep.mp3");
+var audioO = new Audio("http://s3.amazonaws.com/FitMuses_Photos/Domen/OBeep.mp3");
 
+
+//begin angular app
 var ticTacToeApp = angular.module('ticTacToeApp', ["firebase"]);
 
 // angular controller begin
@@ -63,7 +67,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 	    $scope.obj.$save();
 	}
 
-// main play function begin
+// main play function begin - ng-click on playfield 
 
  	$scope.changeState = function(index){
 
@@ -158,9 +162,9 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 		// if(gc == 1 && tc == 2){playVideo(video2, 14000);}
 		if(gc == 2 && tc == 6){playVideo(video8, 13000);}
 		if(gc == 4 && tc == 5){playVideo(video9, 19400);}
-		if(gc == 5 && tc == 3){playVideo(video10, 10000);}
+		if(gc == 5 && tc == 7){playVideo(video10, 10000);}
 		// if(gc == 2 && tc == 2){playVideo(video9, 20000);}
-		if((gc == 3 && (tc == 1 || tc == 2 )) && $scope.obj.board[4] == ''){playVideo(video5, 2300);}
+		if((gc == 3 && (tc == 2 || tc == 3 )) && $scope.obj.board[4] == ''){playVideo(video5, 2300);}
 		if($scope.obj.scoreO == 2 && playedDefcon1 == false){playedDefcon1 = true; playVideo(video9, 19400);}
 
 
@@ -172,7 +176,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 	};
 
  
-}); //end controller
+}); //end angular controller
 
 //helper functions
 
@@ -190,8 +194,6 @@ playVideo = function(videoNum, timeoutNumber){
 };
 
 playSound = function(player){
- 	var audioX = new Audio("audio/XBeep.mp3");
- 	var audioO = new Audio("audio/OBeep.mp3");
  	player === "X" ? audioX.play() : audioO.play();
 };
 
