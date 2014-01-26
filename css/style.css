@@ -15,6 +15,7 @@ html {
 	margin: 20px auto;
 	border: 1px solid white;
 	position: relative;
+	font-size: 1em;
 }
 
 video {
@@ -85,6 +86,17 @@ video {
 	right: 50px;
 
 }
+#reset {
+	font-family: Hyperspace;
+	color: red;
+	font-weight: bold;
+	border: 2px groove red;
+	position: absolute;
+	top: 10px;
+	left: 600px;
+	margin: 0 auto;
+	padding: 3px;
+}
 
 /* media queries ************************** */
 
@@ -122,6 +134,7 @@ video {
 	.showO {
 		background-size: 96px;
 	}
+
    .score {
 	
 		border: 1px solid white;
@@ -136,11 +149,14 @@ video {
 		left: 50px;
 		
 	}
-	#right{
+	#right {
 		position: absolute;
 		top:10px;
 		right: 50px;
 
+	}
+	#reset {
+		left: 465px;
 	}
 }
 
@@ -179,11 +195,9 @@ video {
 		background-size: 64px;
 	}
     .score {
-	
-	border: 1px solid white;
-	font-size: 20px;
-	
-	padding: 5px;
+		border: 1px solid white;
+		font-size: 90%;
+		padding: 5px;
 
 	}
 	#left {
@@ -198,6 +212,11 @@ video {
 		top:10px;
 		right: 50px;
 
+	}
+	#reset {
+		top: 7px;
+		left: 323px;
+		font-size: 80%
 	}
 
 
@@ -237,7 +256,7 @@ video {
 
     .score {
 	
-		font-size: 12px;
+		font-size: 60%;
 		padding: 5px;
 
 	}
@@ -253,4 +272,10 @@ video {
 		right: 20px;
 
 	}
+	#reset {
+		top: 255px;
+		left: 200px;
+		font-size: 70%;
+	}
+
 }
