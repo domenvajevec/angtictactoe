@@ -155,12 +155,12 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 		if($scope.obj.scoreX==3){playVideo(video15, 44000);}
 		if($scope.obj.scoreO==3){playVideo(video16, 19000);}
 		if(gc == 1 && tc == 2){playVideo(video2, 14000);}
-		if(gc == 1 && tc == 2){playVideo(video2, 14000);}
+		// if(gc == 1 && tc == 2){playVideo(video2, 14000);}
 		if(gc == 2 && tc == 6){playVideo(video8, 13000);}
 		if(gc == 4 && tc == 5){playVideo(video9, 19400);}
 		if(gc == 5 && tc == 3){playVideo(video10, 10000);}
 		// if(gc == 2 && tc == 2){playVideo(video9, 20000);}
-		if(gc == 3 && tc == 1){playVideo(video5, 2300);}
+		if((gc == 3 && (tc == 1 || tc == 2 )) && $scope.obj.board[4] == ''){playVideo(video5, 2300);}
 		if($scope.obj.scoreO == 2 && playedDefcon1 == false){playedDefcon1 = true; playVideo(video9, 19400);}
 
 
