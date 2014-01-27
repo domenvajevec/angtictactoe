@@ -1,282 +1,207 @@
 @font-face {
-	font-family: Hyperspace;
-	src: url(Hyperspace.ttf);
+    font-family: Hyperspace;
+    src: url(Hyperspace.ttf);
 }
-
 html {
-    background-color: #000;  
+    background-color: #000;
     color: white;
 }
-
 #wrapper {
-	background-image: url('../images/WarGamesBoard.png');
-	width: 1280px;
-	height:696px;
-	margin: 20px auto;
-	border: 1px solid white;
-	position: relative;
-	font-size: 1em;
+    background-image: url('../images/WarGamesBoard.png');
+    width: 1280px;
+    height: 696px;
+    margin: 20px auto;
+    border: 1px solid white;
+    position: relative;
+    font-size: 1em;
 }
-
 video {
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 /*playfield*/
 
 .field {
-	margin: 5px;
-	display: inline-block;
-	height: 133px;
-	width: 133px;
-	float:left;
-
+    margin: 5px;
+    display: inline-block;
+    height: 133px;
+    width: 133px;
+    float: left;
 }
 .showX {
-	background: url('../images/xxx.gif') no-repeat ;
-	background-size: 121px;
+    background: url('../images/xxx.gif') no-repeat;
+    background-size: 121px;
 }
-
 .showO {
-	background: url('../images/ooo.gif') no-repeat;
-	background-size: 121px;
-
+    background: url('../images/ooo.gif') no-repeat;
+    background-size: 121px;
 }
-
-.field{
-	margin: 12px;
-	width:121px;
-	height: 121px;
-	float: left;
-	/*background-color: #aaa;
-	opacity: 0.7;*/
+.field {
+    margin: 12px;
+    width: 121px;
+    height: 121px;
+    float: left;
+    /*background-color: #aaa;;
+    opacity: 0.7;*/
 }
 .bg-main {
-	display: block;
-	width: 500px;
-	height: 600px;
-	margin: 86px  420px;
+    display: block;
+    width: 500px;
+    height: 600px;
+    margin: 86px  420px;
 }
-
-.clear {
-	clear:both;
-}
-
+.clear { clear: both }
 .score {
-	font-family: Hyperspace;
-	font-weight: bold;
-	color: red;
-	border: 1px solid white;
-	font-size: 30px;
-	background-color: black;
-	padding: 5px;
-
+    font-family: Hyperspace;
+    font-weight: bold;
+    color: red;
+    border: 1px solid white;
+    font-size: 30px;
+    background-color: black;
+    padding: 5px;
 }
 #left {
-	position: absolute;
-	float: left;
-	top: 10px;
-	left: 50px;
-	
+    position: absolute;
+    float: left;
+    top: 10px;
+    left: 50px;
 }
-#right{
-	position: absolute;
-	top:10px;
-	right: 50px;
-
+#right {
+    position: absolute;
+    top: 10px;
+    right: 50px;
 }
 #reset {
-	font-family: Hyperspace;
-	color: red;
-	font-weight: bold;
-	border: 2px groove red;
-	position: absolute;
-	top: 10px;
-	left: 600px;
-	margin: 0 auto;
-	padding: 3px;
+    font-family: Hyperspace;
+    color: red;
+    font-weight: bold;
+    border: 2px groove red;
+    position: absolute;
+    top: 10px;
+    left: 600px;
+    margin: 0 auto;
+    padding: 3px;
 }
+
 
 /* media queries ************************** */
 
-@media (max-width: 1280px){
 
+@media (max-width: 1280px) { 
 	#wrapper {
-	 	background: url('../images/WarGamesBoard1000-544.jpg')no-repeat;
-		width: 1000px;
-		height:544px;
-    }
-
-    .bg-main {
-		width: 352px;
-		height: 352px;
-		margin: 70px 330px;
-	
-	
-    }
-    .field {
-		margin: 8px;
-		
-		height: 96px;
-		width: 96px;
-
-    }
-   /*.field img {
-		width:90px;
-		float: left;
-		padding: 3px;
-    }*/
-    .showX {
-		background-size: 96px;
+	    background: url('../images/WarGamesBoard1000-544.jpg')no-repeat;
+	    width: 1000px;
+	    height: 544px;
 	}
-
-	.showO {
-		background-size: 96px;
+	.bg-main {
+	    width: 352px;
+	    height: 352px;
+	    margin: 70px 330px;
 	}
-
-   .score {
-	
-		border: 1px solid white;
-		font-size: 20px;
-		padding: 5px;
-
+	.field {
+	    margin: 8px;
+	    height: 96px;
+	    width: 96px;
+	}
+	.showX { background-size: 96px }
+	.showO { background-size: 96px }
+	.score {
+	    border: 1px solid white;
+	    font-size: 20px;
+	    padding: 5px;
 	}
 	#left {
-		position: absolute;
-		float: left;
-		top: 10px;
-		left: 50px;
-		
+	    position: absolute;
+	    float: left;
+	    top: 10px;
+	    left: 50px;
 	}
 	#right {
-		position: absolute;
-		top:10px;
-		right: 50px;
+	    position: absolute;
+	    top: 10px;
+	    right: 50px;
+	}
+	#reset { left: 465px }
+}
 
+
+@media (max-width: 1000px) { 
+	#wrapper {
+	    background: url('../images/WarGamesBoard700-381.jpg')no-repeat;
+	    width: 700px;
+	    height: 381px;
+	}
+	.bg-main {
+	    width: 240px;
+	    height: 240px;
+	    margin: 50px  231px;
+	}
+	.field {
+	    margin: 7px;
+	    height: 64px;
+	    width: 64px;
+	}
+	.showX { background-size: 64px }
+	.showO { background-size: 64px }
+	.score {
+	    border: 1px solid white;
+	    font-size: 90%;
+	    padding: 5px;
+	}
+	#left {
+	    position: absolute;
+	    float: left;
+	    top: 10px;
+	    left: 50px;
+	}
+	#right {
+	    position: absolute;
+	    top: 10px;
+	    right: 50px;
 	}
 	#reset {
-		left: 465px;
+	    top: 7px;
+	    left: 323px;
+	    font-size: 80%;
 	}
 }
 
-@media (max-width: 1000px){
 
+@media (max-width: 700px) { 
 	#wrapper {
-		background: url('../images/WarGamesBoard700-381.jpg')no-repeat;
-		width: 700px;
-		height:381px;
-	}
-
-	.bg-main {
-	
-		width: 240px;
-		height: 240px;
-		margin: 50px  231px;
-	
-    }
-    .field {
-		margin: 7px;
-		height: 64px;
-		width: 64px;
-	
-   }
-   /*.field img {
-		width:62px;
-		float: left;
-		padding: 2px;
-	
-   }*/
-    .showX {
-		background-size: 64px;
-	}
-
-	.showO {
-		background-size: 64px;
-	}
-    .score {
-		border: 1px solid white;
-		font-size: 90%;
-		padding: 5px;
-
-	}
-	#left {
-		position: absolute;
-		float: left;
-		top: 10px;
-		left: 50px;
-		
-	}
-	#right{
-		position: absolute;
-		top:10px;
-		right: 50px;
-
-	}
-	#reset {
-		top: 7px;
-		left: 323px;
-		font-size: 80%
-	}
-
-
-}
-@media (max-width: 700px){
-
-	#wrapper {
-		background: url('../images/WarGamesBoard450-245.jpg')no-repeat;
-		width: 450px;
-		height:245px;
-		margin-top: 20px;
+	    background: url('../images/WarGamesBoard450-245.jpg')no-repeat;
+	    width: 450px;
+	    height: 245px;
+	    margin-top: 20px;
 	}
 	.bg-main {
-	
-		width: 156px;
-		height: 156px;
-		margin: 29px  145px;
-		
-    }
-    .field {
-		margin: 5px;
-		height: 42px;
-	 	width: 42px;
-    }
-   /*.field img {
-		width:41px;
-		float: left;
-		padding: 1px;
-    }*/
-
-    .showX {
-		background-size: 41px 41px;
+	    width: 156px;
+	    height: 156px;
+	    margin: 29px  145px;
 	}
-
-	.showO {
-		background-size: 41px 41px;
+	.field {
+	    margin: 5px;
+	    height: 42px;
+	    width: 42px;
 	}
-
-    .score {
-	
-		font-size: 60%;
-		padding: 5px;
-
+	.showX { background-size: 41px 41px }
+	.showO { background-size: 41px 41px }
+	.score {
+	    font-size: 60%;
+	    padding: 5px;
 	}
 	#left {
-		
-		top: 5px;
-		left: 20px;
-		
+	    top: 5px;
+	    left: 20px;
 	}
-	#right{
-		
-		top:5px;
-		right: 20px;
-
+	#right {
+	    top: 5px;
+	    right: 20px;
 	}
 	#reset {
-		top: 255px;
-		left: 200px;
-		font-size: 70%;
+	    top: 255px;
+	    left: 200px;
+	    font-size: 70%;
 	}
-
 }
