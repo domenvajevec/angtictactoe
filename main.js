@@ -41,7 +41,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
     	if ($scope.obj.currentPlayer == true){playSound("O");}
     	if ($scope.obj.currentPlayer == false){playSound("X");}
 
-		// console.log("screenplay(): Game Counter: "+ gc + " Turn counter: " + tc + " scoreX: " +
+		console.log("screenplay(): Game Counter: "+ gc + " Turn counter: " + tc + " scoreX: " +
 		//  $scope.obj.scoreX + " scoreO: " + $scope.obj.scoreO);
 		if($scope.obj.scoreX==3){playVideo(video15, 44000);}
 		if($scope.obj.scoreO==3){playVideo(video16, 19000);}
@@ -50,7 +50,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 		if(gc == 4 && tc == 5){playVideo(video9, 19400);}
 		if(gc == 5 && tc == 7){playVideo(video10, 10000);}
 		if(gc == 2 && tc == 0){playVideo(video5, 2300);}
-		if($scope.obj.scoreO == 2 ){playVideo(video9, 19400);}
+		// if($scope.obj.scoreO == 2 ){playVideo(video9, 19400);}
 
 		//stalemate
 		if ($scope.obj.turnCounter == 9 && !$scope.checkWin($scope.obj.playerX) && !$scope.checkWin($scope.obj.playerO)){
@@ -107,7 +107,6 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 	    if($scope.obj.board[index] == '' ){ 
 	    	//check player
 			if (whoAmI == "X" && $scope.obj.currentPlayer == true){ 
-				// playSound("X");
 				$scope.obj.playerX.push(index);
 				$scope.obj.board[index] = "X";
 				$scope.changePlayer();
@@ -120,7 +119,6 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 
 			else if (whoAmI == "O" && $scope.obj.currentPlayer == false) {
 				$scope.obj.playerO.push(index);
-				// playSound("O");
 				$scope.obj.board[index] = "O";
 				$scope.changePlayer();
 				if ($scope.checkWin($scope.obj.playerO)){
@@ -177,9 +175,6 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
 	    return false;
     };	
 
- 
-
- 
 }); //end angular controller
 
 //helper functions
