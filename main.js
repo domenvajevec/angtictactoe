@@ -38,8 +38,8 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
     	var tc = $scope.obj.turnCounter;
 
     	//play X and O audio alternatively
-    	if ($scope.obj.currentPlayer == true){playSound("X");}
-    	if ($scope.obj.currentPlayer == false){playSound("O");}
+    	if ($scope.obj.currentPlayer == true){playSound("O");}
+    	if ($scope.obj.currentPlayer == false){playSound("X");}
 
 		// console.log("screenplay(): Game Counter: "+ gc + " Turn counter: " + tc + " scoreX: " +
 		//  $scope.obj.scoreX + " scoreO: " + $scope.obj.scoreO);
