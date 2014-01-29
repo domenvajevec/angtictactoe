@@ -41,7 +41,7 @@ ticTacToeApp.controller('TicTacToeCtrl', function($scope, $firebase, $timeout){
     	if ($scope.obj.currentPlayer == true){playSound("O");}
     	if ($scope.obj.currentPlayer == false){playSound("X");}
 
-		console.log("screenplay(): Game Counter: "+ gc + " Turn counter: " + tc + " scoreX: " +
+		// console.log("screenplay(): Game Counter: "+ gc + " Turn counter: " + tc + " scoreX: " +
 		//  $scope.obj.scoreX + " scoreO: " + $scope.obj.scoreO);
 		if($scope.obj.scoreX==3){playVideo(video15, 44000);}
 		if($scope.obj.scoreO==3){playVideo(video16, 19000);}
